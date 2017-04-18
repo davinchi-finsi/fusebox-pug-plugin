@@ -9,7 +9,7 @@ PugPlugin is used to handle .pug files rendering html content and MUSN'T be chai
 ### Typescript
 
 ```Typescript
-import PugPlugin from "fusebox-pug-plugin";
+import {PugPlugin} from "fusebox-pug-plugin";
 let fuse = fsbx.FuseBox.init({
     homeDir: "test/fixtures/cases/ts",
     outFile: "./out.js",
