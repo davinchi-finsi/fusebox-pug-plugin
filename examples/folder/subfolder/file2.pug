@@ -1,0 +1,9 @@
+//- examples/file1.pug
+include ~/file1
+//- is the same that
+include ../../file1
+//- for node_modules/someFolder/someFile.pug
+include node:someFolder/someFile
+//- is the same that
+include ../../../node_modules/someFolder/someFile
+
