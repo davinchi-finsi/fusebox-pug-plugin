@@ -11,8 +11,8 @@ PugPlugin is used to handle .pug files rendering html content and MUSN'T be chai
 ```Typescript
 import {PugPlugin} from "fusebox-pug-plugin";
 let fuse = fsbx.FuseBox.init({
-    homeDir: "test/fixtures/cases/ts",
-    outFile: "./out.js",
+    homeDir: "./src",
+    outFile: "./bundle.js",
     plugins: [
 	    PugPlugin()
     ]
@@ -23,8 +23,8 @@ let fuse = fsbx.FuseBox.init({
 ```javascript
 const PugPlugin = require("fusebox-pug-plugin").PugPlugin;
 let fuse = fsbx.FuseBox.init({
-    homeDir: "test/fixtures/cases/ts",
-    outFile: "./out.js",
+    homeDir: "./src",
+    outFile: "./bundle.js",
     plugins: [
 	    PugPlugin()
     ]
