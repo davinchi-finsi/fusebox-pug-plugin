@@ -2,14 +2,18 @@
  * @license
  * Copyright Davinchi. All Rights Reserved.
  */
+/// <reference path="../node_modules/@types/pug/index.d.ts"/>
 import {File} from "fuse-box/dist/commonjs/core/File";
 import {WorkFlowContext} from "fuse-box/dist/commonjs/core/WorkflowContext";
 import {Plugin} from "fuse-box/dist/commonjs/core/WorkflowContext";
 import {Config} from "fuse-box/dist/commonjs/Config";
 import * as extend from "extend";
 import * as path from "path";
-let pug;
-let pugLoad;
+import * as pug from "pug";
+export interface IPugPluginOptions{
+    hmr?:boolean;//If true, emitJavascriptHotReload will be invoked after render component
+    pug?:pug.Options;
+}
 /**
  * @export
  * @class PugPluginClass
@@ -19,8 +23,11 @@ let pugLoad;
  */
 export class PugPluginClass implements Plugin {
     protected static readonly DEFAULTS = {
-        pretty: true,
-        useDefault: true
+        hmr:true,
+        useDefault: true,
+        pug: {
+            pretty: true
+        }
     };
     protected _rootRegex = new RegExp(/^~\//);
     protected _rootReplaceRegex = new RegExp(/^~/);
@@ -28,6 +35,8 @@ export class PugPluginClass implements Plugin {
     protected _nodeModulesReplaceRegex = new RegExp(/^node:/);
     protected _extend = extend;
     protected _path = path;
+    protected _pug = pug;
+    protected _pugLoad;
     /**
      * @type {RegExp}
      * @memberOf PugPluginClass
@@ -35,8 +44,14 @@ export class PugPluginClass implements Plugin {
     public test: RegExp = /\.pug$/;
     public options: any;
 
-    constructor(options: any) {
+    constructor(options:IPugPluginOptions) {
         this.options = this._extend(true, PugPluginClass.DEFAULTS, options || {});
+        this.options.pug.pugPlugin= this;
+        this.options.pug.plugins = [//resolver function as plugin
+            {
+                "resolve": this._pugResolver.bind(this)
+            }
+        ];
     }
 
     public init(context: WorkFlowContext) {
@@ -60,7 +75,7 @@ export class PugPluginClass implements Plugin {
         } else if (this._nodeModulesRegex.test(filename)) {//if node: , resolve path from node modules
             result = this._path.join(Config.NODE_MODULES_DIR, filename.replace(this._nodeModulesReplaceRegex, ""));
         } else {//otherwise, use default pug resolver
-            result = pugLoad.resolve(filename, source, options);
+            result = this._pugLoad.resolve(filename, source, options);
         }
         return result;
     }
@@ -73,33 +88,24 @@ export class PugPluginClass implements Plugin {
         const context: WorkFlowContext = file.context;
         const options = {...this.options};
         file.loadContents();
-        if (!pug) {
-            pug = require("pug");
-        }
-        if (!pugLoad) {
-            pugLoad = require("pug-load");
+        if (!this._pugLoad) {
+            this._pugLoad = require("pug-load");
         }
         options.filename = options.filename || file.info.fuseBoxPath;
-        let content = pug.renderFile(file.absPath,
-            {
-                basedir: context.homeDir,
-                pugPlugin: this,
-                plugins: [//resolver function as plugin
-                    {
-                        "resolve": this._pugResolver.bind(this)
-                    }
-                ]
-            }
-        );
+        this.options.pug.basedir= context.homeDir;
+        let content = this._pug.renderFile(file.absPath,this.options.pug);
         if (this.options.useDefault) {
             file.contents = `module.exports.default =  ${JSON.stringify(content)};`;
         } else {
             file.contents = `module.exports =  ${JSON.stringify(content)};`;
         }
+        if(this.options.hmr) {
+            context.emitJavascriptHotReload(file);
+        }
         return file.content;
     }
 }
 
-export const PugPlugin = (opts: any) => {
+export const PugPlugin = (opts:IPugPluginOptions) => {
     return new PugPluginClass(opts);
 };

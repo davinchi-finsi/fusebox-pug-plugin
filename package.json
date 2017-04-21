@@ -6,13 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "GNU GPLv3",
+  "module": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/davinchi_finsi/pugplugin"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Davinchi",
+  "license": "GNU GPLv3",
+  "homepage": "https://bitbucket.org/davinchi_finsi/pugplugin",
   "dependencies": {
+    "@types/pug": "^2.0.4",
     "extend": "^3.0.0",
-    "fuse-box": "^1.3.131",
     "pug": "^2.0.0-beta.12"
   },
   "devDependencies": {
+    "fuse-box": "^1.3.131",
     "@types/node": "^7.0.13"
   }
 }

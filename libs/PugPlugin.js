@@ -3,8 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const Config_1 = require("fuse-box/dist/commonjs/Config");
 const extend = require("extend");
 const path = require("path");
-let pug;
-let pugLoad;
+const pug = require("pug");
 /**
  * @export
  * @class PugPluginClass
@@ -20,12 +19,19 @@ class PugPluginClass {
         this._nodeModulesReplaceRegex = new RegExp(/^node:/);
         this._extend = extend;
         this._path = path;
+        this._pug = pug;
         /**
          * @type {RegExp}
          * @memberOf PugPluginClass
          */
         this.test = /\.pug$/;
         this.options = this._extend(true, PugPluginClass.DEFAULTS, options || {});
+        this.options.pug.pugPlugin = this;
+        this.options.pug.plugins = [
+            {
+                "resolve": this._pugResolver.bind(this)
+            }
+        ];
     }
     init(context) {
         this.options.basedir = this.options.basedir || context.homeDir;
@@ -49,7 +55,7 @@ class PugPluginClass {
             result = this._path.join(Config_1.Config.NODE_MODULES_DIR, filename.replace(this._nodeModulesReplaceRegex, ""));
         }
         else {
-            result = pugLoad.resolve(filename, source, options);
+            result = this._pugLoad.resolve(filename, source, options);
         }
         return result;
     }
@@ -61,34 +67,30 @@ class PugPluginClass {
         const context = file.context;
         const options = Object.assign({}, this.options);
         file.loadContents();
-        if (!pug) {
-            pug = require("pug");
-        }
-        if (!pugLoad) {
-            pugLoad = require("pug-load");
+        if (!this._pugLoad) {
+            this._pugLoad = require("pug-load");
         }
         options.filename = options.filename || file.info.fuseBoxPath;
-        let content = pug.renderFile(file.absPath, {
-            basedir: context.homeDir,
-            pugPlugin: this,
-            plugins: [
-                {
-                    "resolve": this._pugResolver.bind(this)
-                }
-            ]
-        });
+        this.options.pug.basedir = context.homeDir;
+        let content = this._pug.renderFile(file.absPath, this.options.pug);
         if (this.options.useDefault) {
             file.contents = `module.exports.default =  ${JSON.stringify(content)};`;
         }
         else {
             file.contents = `module.exports =  ${JSON.stringify(content)};`;
         }
+        if (this.options.hmr) {
+            context.emitJavascriptHotReload(file);
+        }
         return file.content;
     }
 }
 PugPluginClass.DEFAULTS = {
-    pretty: true,
-    useDefault: true
+    hmr: true,
+    useDefault: true,
+    pug: {
+        pretty: true
+    }
 };
 exports.PugPluginClass = PugPluginClass;
 exports.PugPlugin = (opts) => {
