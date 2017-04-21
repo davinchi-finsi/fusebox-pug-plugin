@@ -30,7 +30,32 @@ let fuse = fsbx.FuseBox.init({
     ]
 });
 ```
-	
+### Options
+The options availables are specified in IPugPluginOptions interface:
+| Option     | Default | Description                                                                  |
+|------------|---------|------------------------------------------------------------------------------|
+| hmr        | true    | Define if emitJavascriptHotReload should be invoked after render component   |
+| useDefault | true    | Define if the file should be exporting with default                          |
+| pug        |         | Any pug options. See [options](https://pugjs.org/api/reference.html#options )|
+| pug.pretty | true    | Pretty output                                                                |
+
+```Typescript
+import {PugPlugin,IPugPluginOptions} from "fusebox-pug-plugin";
+let pugPluginOptions:IPugPluginOptions = {
+   hmr:true,// If true, emitJavascriptHotReload will be invoked after render component
+   useDefault:true,//If true, the file could be imported using default export
+   pug:{//Any pug option
+       pretty:true
+   }
+}
+let fuse = fsbx.FuseBox.init({
+    homeDir: "./src",
+    outFile: "./bundle.js",
+    plugins: [
+	    PugPlugin(pugPluginOptions)
+    ]
+});
+```	
 ### Macros for include
 You have 2 special macros availables:
 
@@ -45,7 +70,7 @@ root
  |-  file.pug 
 ```
 root/folder/subfolder/file2.pug
-```pug
+```jade
 include ~/file
 //- Is the same as
 include ../../file
@@ -64,7 +89,7 @@ root
  |		  |- file.pug
 ```
 root/folder/subfolder/file.pug
-```Pug
+```jade
 include node:module/moduleFile
 //- Is the same as
 include ../../../node_modules/module/moduleFile
