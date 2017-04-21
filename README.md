@@ -32,12 +32,13 @@ let fuse = fsbx.FuseBox.init({
 ```
 ### Options
 The options availables are specified in IPugPluginOptions interface:
-| Option     | Default | Description                                                                  |
-|------------|---------|------------------------------------------------------------------------------|
-| hmr        | true    | Define if emitJavascriptHotReload should be invoked after render component   |
-| useDefault | true    | Define if the file should be exporting with default                          |
-| pug        |         | Any pug options. See [options](https://pugjs.org/api/reference.html#options )|
-| pug.pretty | true    | Pretty output                                                                |
+
+ Option     | Default | Description                                                                  
+------------|---------|------------------------------------------------------------------------------
+ hmr        | true    | Define if emitJavascriptHotReload should be invoked after render component   
+ useDefault | true    | Define if the file should be exporting with default                          
+ pug        |         | Any pug options. See [options](https://pugjs.org/api/reference.html#options )
+ pug.pretty | true    | Pretty output                                                                
 
 ```Typescript
 import {PugPlugin,IPugPluginOptions} from "fusebox-pug-plugin";
