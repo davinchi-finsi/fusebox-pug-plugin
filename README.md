@@ -1,6 +1,6 @@
 # Pug Plugin
-PugPlugin is used to handle .pug files rendering html content and MUSN'T be chained with HtmlPlugin, see details here.
-
+PugPlugin is used to handle .pug files rendering html content and MUSN'T be chained with HtmlPlugin, see details bellow.
+Based on HTMLPlugin of fusebox, see [source](https://github.com/fuse-box/fuse-box/blob/master/src/plugins/HTMLplugin.ts) and (doc)[http://fuse-box.org/#html-plugin]
 ## Install
     npm i --save fusebox-pug-plugin
     
@@ -101,7 +101,21 @@ include ../../../node_modules/module/moduleFile
 
 ### Notes
 #### HtmlPlugin
-Pug allows to include and extend pug files, when a file is modified, pug doesn't track by default the rest of files that uses the updated file, HtmlPlugin by default uses caching to speed up bundling, with the cache if a file included is updated the file that includes it won't be updated.
+Pug allows to include and extend from other pug files, when a file is modified, pug doesn't track by default the dependencies, HtmlPlugin by default uses caching to speed up bundling, with the cache if a file included is updated the file included won't be updated.
 To prevent this, is necessary compile all the pug files with each modification (yes, it's a pity).
-Exists a tool called pug-inheritance but in order to use it is necessary knows the file that is included or extended, fusebox only notifies the file imported in .js/.ts so is not possible use pug-inheritance.
+Exists a tool called pug-inheritance that get all the files that uses another file, fusebox only notifies the file imported in .js/.ts so is not possible use pug-inheritance.
+For example:
+```Typescript
+import template from "./myFile.pug"
+```
+myFile.pug
+```jade
+include ./_otherFile.pug
+```
+_otherFile.pug
+```jade
+//Some content
+```
+pug-inheritane reciebes _otherFile.pug and is capable of get all the files that use _otherFile.pug, but the file tracked by fusebox is myFile.pug so is not possible to know when _otherFile.pug changes
+
 If you find another way please feel free to contribute :)
