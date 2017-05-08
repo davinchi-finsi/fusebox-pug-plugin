@@ -1,6 +1,6 @@
 {
   "name": "fusebox-pug-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Import pug files with fusebox allowing to use ~ to import from root and node: to import from node_modules",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "module": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davinchi-finsi/fusebox-pug-plugin.git"
+    "url": "https://github.com/davinchi-finsi/fusebox-pug-plugin.git"
   },
   "publishConfig": {
     "access": "public"
