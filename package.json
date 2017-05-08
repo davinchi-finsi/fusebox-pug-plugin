@@ -4,19 +4,31 @@
   "description": "Import pug files with fusebox allowing to use ~ to import from root and node: to import from node_modules",
   "main": "index.js",
   "scripts": {
+    "build":"tsc -p src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "module": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/davinchi_finsi/pugplugin"
+    "url": "git+https://github.com/davinchi-finsi/fusebox-pug-plugin.git"
   },
   "publishConfig": {
     "access": "public"
   },
-  "author": "Davinchi",
-  "license": "GNU GPLv3",
-  "homepage": "https://bitbucket.org/davinchi_finsi/pugplugin",
+  "author": {
+    "name": "Davinchi",
+    "url": "www.davinchi.es"
+  },
+  "keywords": [
+    "fusebox",
+    "fuse-box",
+    "pug"
+  ],
+  "bugs": {
+    "url": "https://github.com/davinchi-finsi/fusebox-pug-plugin/issues"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/davinchi-finsi/fusebox-pug-plugin",
   "dependencies": {
     "@types/pug": "^2.0.4",
     "extend": "^3.0.0",

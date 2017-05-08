@@ -116,6 +116,6 @@ _otherFile.pug
 ```jade
 //Some content
 ```
-pug-inheritane reciebes _otherFile.pug and is capable of get all the files that use _otherFile.pug, but the file tracked by fusebox is myFile.pug so is not possible to know when _otherFile.pug changes
+If pug-inheritane receives _otherFile.pug and is capable of get all the files that use _otherFile.pug, but the file tracked by fusebox is myFile.pug so is not possible to know when _otherFile.pug changes
 
 If you find another way please feel free to contribute :)
