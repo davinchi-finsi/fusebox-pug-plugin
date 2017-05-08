@@ -1,5 +1,5 @@
 # Pug Plugin
-PugPlugin is used to handle .pug files rendering html content and MUSN'T be chained with HtmlPlugin, see details bellow.
+PugPlugin is used to handle .pug files rendering html content and DON'T HAVE TO be chained with HtmlPlugin, see details bellow.
 Based on HTMLPlugin of fusebox, see [source](https://github.com/fuse-box/fuse-box/blob/master/src/plugins/HTMLplugin.ts) and [doc](http://fuse-box.org/#html-plugin)
 ## Install
     npm i --save fusebox-pug-plugin
