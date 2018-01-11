@@ -4,7 +4,7 @@
   "description": "Import pug files with fusebox allowing to use ~ to import from root and node: to import from node_modules",
   "main": "index.js",
   "scripts": {
-    "build":"tsc -p src",
+    "build": "tsc -p src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "module": "index.js",
@@ -35,7 +35,7 @@
     "pug": "^2.0.0-beta.12"
   },
   "devDependencies": {
-    "fuse-box": "^1.3.131",
-    "@types/node": "^7.0.13"
+    "@types/node": "^7.0.13",
+    "fuse-box": "^3.0.2"
   }
 }

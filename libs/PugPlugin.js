@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Config_1 = require("fuse-box/dist/commonjs/Config");
+const Config_1 = require("fuse-box/Config");
 const extend = require("extend");
 const path = require("path");
 const pug = require("pug");
@@ -82,7 +82,7 @@ class PugPluginClass {
         if (this.options.hmr) {
             context.emitJavascriptHotReload(file);
         }
-        return file.content;
+        return file.contents;
     }
 }
 PugPluginClass.DEFAULTS = {

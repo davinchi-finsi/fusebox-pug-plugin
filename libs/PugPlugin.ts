@@ -3,10 +3,9 @@
  * Copyright Davinchi. All Rights Reserved.
  */
 /// <reference path="../node_modules/@types/pug/index.d.ts"/>
-import {File} from "fuse-box/dist/commonjs/core/File";
-import {WorkFlowContext} from "fuse-box/dist/commonjs/core/WorkflowContext";
-import {Plugin} from "fuse-box/dist/commonjs/core/WorkflowContext";
-import {Config} from "fuse-box/dist/commonjs/Config";
+import {File} from "fuse-box/core/File";
+import {WorkFlowContext,Plugin} from "fuse-box/core/WorkflowContext";
+import {Config} from "fuse-box/Config";
 import * as extend from "extend";
 import * as path from "path";
 import * as pug from "pug";
@@ -102,7 +101,7 @@ export class PugPluginClass implements Plugin {
         if(this.options.hmr) {
             context.emitJavascriptHotReload(file);
         }
-        return file.content;
+        return file.contents;
     }
 }
 
