@@ -1,6 +1,6 @@
 {
-  "name": "fusebox-pug-plugin",
-  "version": "2.0.0",
+  "name": "fusebox-pug-plugin-fixed",
+  "version": "2.0.1",
   "description": "Import pug files with fusebox allowing to use ~ to import from root and node: to import from node_modules",
   "main": "index.js",
   "scripts": {
@@ -10,14 +10,14 @@
   "module": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/davinchi-finsi/fusebox-pug-plugin.git"
+    "url": "https://github.com/diwiny/fusebox-pug-plugin.git"
   },
   "publishConfig": {
     "access": "public"
   },
   "author": {
-    "name": "Davinchi",
-    "url": "www.davinchi.es"
+    "name": "Lajos Kovacs",
+    "url": "diwiny.hu"
   },
   "keywords": [
     "fusebox",
@@ -25,10 +25,10 @@
     "pug"
   ],
   "bugs": {
-    "url": "https://github.com/davinchi-finsi/fusebox-pug-plugin/issues"
+    "url": "https://github.com/diwiny/fusebox-pug-plugin/issues"
   },
   "license": "MIT",
-  "homepage": "https://github.com/davinchi-finsi/fusebox-pug-plugin",
+  "homepage": "https://github.com/diwiny/fusebox-pug-plugin",
   "dependencies": {
     "@types/pug": "^2.0.4",
     "extend": "^3.0.0",
