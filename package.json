@@ -1,5 +1,5 @@
 {
-  "name": "fusebox-pug-plugin-fixed",
+  "name": "fusebox-pug-plugin",
   "version": "2.0.1",
   "description": "Import pug files with fusebox allowing to use ~ to import from root and node: to import from node_modules",
   "main": "index.js",
